@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANGUARD // Executive Workspace Setup</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration for Executive Black, Brown & Red Palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: '#090707',
+                        espresso: '#18100D',
+                        mahogany: '#2E1A14',
+                        walnut: '#4A2B20',
+                        cognac: '#7C432D',
+                        crimson: '#B91C1C',
+                        ruby: '#DC2626',
+                        ember: '#EF4444',
+                    },
+                    animation: {
+                        'steam-1': 'steam 3.5s ease-out infinite',
+                        'steam-2': 'steam 3.5s ease-out 1.2s infinite',
+                        'steam-3': 'steam 3.5s ease-out 2.4s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        steam: {
+                            '0%': { transform: 'translateY(0) scaleX(1)', opacity: '0' },
+                            '25%': { opacity: '0.5' },
+                            '50%': { transform: 'translateY(-14px) scaleX(1.2)', opacity: '0.3' },
+                            '100%': { transform: 'translateY(-28px) scaleX(0.8)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Minimal Custom CSS for Woodgrain Slats, Leather Texture & Ambient Glow Variables -->
+    <style>
+        :root {
+            --glow-opacity: 0.65;
+            --lamp-color: rgba(217, 119, 6, 0.22);
+            --lamp-core: #F59E0B;
+        }
+
+        body {
+            background-color: #090707;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(185, 28, 28, 0.14) 0%, transparent 55%),
+                radial-gradient(circle at 85% 40%, rgba(74, 43, 32, 0.18) 0%, transparent 50%),
+                linear-gradient(180deg, #090707 0%, #120B09 50%, #090707 100%);
+            color: #F3EFEA;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Walnut Slat Wall Texture */
+        .wood-slats {
+            background: repeating-linear-gradient(
+                90deg,
+                #22130E 0px,
+                #2E1A14 10px,
+                #1B0E0A 11px,
+                #080606 16px
+            );
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.85);
+        }
+
+        /* Rich Mahogany Desktop Surface */
+        .mahogany-desk {
+            background: linear-gradient(180deg, #3B2219 0%, #26150F 45%, #170C09 100%);
+            box-shadow: 
+                inset 0 2px 1px rgba(255, 255, 255, 0.08),
+                0 25px 50px -12px rgba(0, 0, 0, 0.95);
+        }
+
+        /* Full-Grain Espresso Leather Desk Mat */
+        .leather-mat {
+            background-color: #1D120E;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 6px 6px;
+            box-shadow: 
+                0 6px 16px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        /* Dynamic Ambient Crimson LED Glow */
+        .ambient-led-glow {
+            opacity: var(--glow-opacity);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Dynamic Desk Lamp Cone */
+        .lamp-cone {
+            background: radial-gradient(ellipse at top, var(--lamp-color) 0%, transparent 72%);
+            transition: background 0.4s ease;
+        }
+
+        .lamp-bulb {
+            background-color: var(--lamp-core);
+            box-shadow: 0 0 18px var(--lamp-core);
+            transition: all 0.4s ease;
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #2E1A14;
+            border-radius: 999px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #DC2626;
+            border: 2px solid #F3EFEA;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.8);
+        }
+
+        /* Custom Scrollbar inside virtual monitor */
+        .monitor-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .monitor-scroll::-webkit-scrollbar-track {
+            background: #0F0A09;
+        }
+        .monitor-scroll::-webkit-scrollbar-thumb {
+            background: #4A2B20;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-ruby selection:text-white min-h-screen flex flex-col">
+
+    <!-- ===================================================================== -->
+    <!-- 1. EXECUTIVE NAVIGATION BAR                                           -->
+    <!-- ===================================================================== -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-obsidian/85 border-b border-walnut/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Minimal Executive Branding -->
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-crimson to-espresso border border-ruby/50 flex items-center justify-center shadow-[0_0_15px_rgba(220,38,38,0.4)]">
+                    <span class="font-mono font-bold text-white text-sm tracking-tighter">V//</span>
+                </div>
+                <div>
+                    <span class="font-semibold tracking-widest text-sm uppercase text-stone-100">Vanguard</span>
+                    <span class="hidden sm:inline-block text-xs text-stone-400 font-mono ml-2 border-l border-walnut pl-2">SUITE 09 // ATELIER</span>
+                </div>
+            </div>
+
+            <!-- Interactive Workspace Lighting / Mode Toggles -->
+            <nav aria-label="Workspace Atmosphere Modes" class="flex items-center bg-espresso/90 p-1 rounded-xl border border-walnut/50 shadow-inner">
+                <button onclick="setWorkspaceMode('focus')" id="btn-mode-focus" class="mode-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-stone-400 hover:text-stone-200">
+                    Focus Mode
+                </button>
+                <button onclick="setWorkspaceMode('ambient')" id="btn-mode-ambient" class="mode-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 bg-gradient-to-r from-crimson to-mahogany text-white shadow-[0_0_12px_rgba(220,38,38,0.45)] border border-ruby/40">
+                    Ambient Glow
+                </button>
+                <button onclick="setWorkspaceMode('night')" id="btn-mode-night" class="mode-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-stone-400 hover:text-stone-200">
+                    Executive Night
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- MAIN CONTENT CONTAINER                                                -->
+    <!-- ===================================================================== -->
+    <main class="flex-grow">
+        
+        <!-- ================================================================= -->
+        <!-- 2. HERO SECTION: INTERACTIVE 2.5D ARCHITECTURAL OFFICE DESK SETUP -->
+        <!-- ================================================================= -->
+        <section class="relative pt-8 pb-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            
+            <!-- Top Editorial Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-espresso border border-crimson/40 text-ember text-xs font-mono mb-3">
+                        <span class="w-2 h-2 rounded-full bg-ruby animate-pulse"></span>
+                        <span>INTERACTIVE ARCHITECTURAL WORKSTATION</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-100">
+                        Obsidian, Mahogany &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-ember via-ruby to-cognac">Crimson</span>
+                    </h1>
+                </div>
+                <p class="text-sm text-stone-400 max-w-md leading-relaxed">
+                    Designed for deep executive focus. Interact directly with the ultrawide command display below, or tune the room's acoustic lighting and thermal ambiance.
+                </p>
+            </div>
+
+            <!-- 2.5D LAYERED ARCHITECTURAL WORKSPACE STAGE -->
+            <div id="office-stage" class="relative w-full rounded-2xl overflow-hidden border border-walnut/60 bg-obsidian shadow-[0_25px_70px_rgba(0,0,0,0.9)] transition-all duration-500">
+                
+                <!-- BACK WALL: Matte Black + Vertical Walnut Acoustic Wood Slats -->
+                <div class="relative w-full pt-8 sm:pt-12 pb-28 sm:pb-36 px-3 sm:px-8 md:px-14 flex flex-col items-center justify-end overflow-hidden bg-gradient-to-b from-[#070505] via-[#0E0908] to-[#160D0A]">
+                    
+                    <!-- Left & Right Acoustic Walnut Panels -->
+                    <div class="wood-slats absolute inset-y-0 left-0 w-1/4 sm:w-1/3 opacity-85 border-r border-black/80 pointer-events-none"></div>
+                    <div class="wood-slats absolute inset-y-0 right-0 w-1/4 sm:w-1/3 opacity-85 border-l border-black/80 pointer-events-none"></div>
+                    
+                    <!-- Center Matte Black Architectural Recess -->
+                    <div class="absolute inset-y-0 left-1/4 right-1/4 sm:left-1/3 sm:right-1/3 bg-gradient-to-b from-[#080606] to-[#120A08] border-x border-walnut/30 pointer-events-none"></div>
+
+                    <!-- Subtle Floating Wall Shelf (Top Left) -->
+                    <div class="hidden lg:flex flex-col items-start absolute top-10 left-10 z-10 w-44">
+                        <div class="flex items-end gap-3 px-3 pb-1">
+                            <!-- Minimalist Sculptural Book Stack -->
+                            <div class="w-3 h-12 bg-espresso border border-walnut/60 rounded-t-sm"></div>
+                            <div class="w-3.5 h-14 bg-crimson/80 border border-ember/40 rounded-t-sm"></div>
+                            <div class="w-3 h-11 bg-mahogany border border-cognac/50 rounded-t-sm"></div>
+                            <!-- Matte Black Planter with Crimson Accent -->
+                            <div class="ml-4 flex flex-col items-center">
+                                <div class="w-5 h-5 rounded-full bg-emerald-950 border border-emerald-700/40 -mb-1"></div>
+                                <div class="w-6 h-5 bg-obsidian border border-walnut/70 rounded-b-md"></div>
+                            </div>
+                        </div>
+                        <div class="w-full h-2.5 bg-gradient-to-r from-mahogany via-walnut to-espresso rounded-sm shadow-lg border-t border-cognac/30"></div>
+                    </div>
+
+                    <!-- Minimalist Architectural Desk Lamp (Top Right) -->
+                    <div class="hidden md:block absolute top-6 right-12 z-20 pointer-events-none">
+                        <!-- Lamp Arm & Head -->
+                        <div class="relative flex flex-col items-end">
+                            <div class="w-28 h-2 bg-gradient-to-l from-obsidian to-walnut rounded-full transform -rotate-12 origin-right border border-stone-700/40 shadow-md"></div>
+                            <div class="w-20 h-3.5 bg-gradient-to-r from-espresso via-obsidian to-espresso rounded-full border border-cognac/50 -mt-1 mr-20 shadow-lg flex justify-center items-end">
+                                <div class="w-14 h-1 rounded-full lamp-bulb"></div>
+                            </div>
+                            <!-- Light Cone Cast Downwards -->
+                            <div class="w-72 h-72 lamp-cone -mt-1 mr-0 transform -translate-x-6 pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                    <!-- AMBIENT CRIMSON LED BACKLIGHT HALO (Behind Ultrawide Monitor) -->
+                    <div id="led-halo" class="ambient-led-glow absolute bottom-28 sm:bottom-36 w-[88%] max-w-4xl h-48 sm:h-60 rounded-full bg-gradient-to-r from-crimson via-ruby to-crimson blur-3xl pointer-events-none"></div>
+
+                    <!-- ===================================================== -->
+                    <!-- ULTRAWIDE 38" CURVED EXECUTIVE MONITOR                -->
+                    <!-- ===================================================== -->
+                    <div class="relative z-20 w-full max-w-4xl">
+                        <!-- Monitor Outer Matte Black Bezel -->
+                        <div class="rounded-xl sm:rounded-2xl bg-[#070606] p-2 sm:p-3 border border-stone-800/90 shadow-[0_20px_50px_rgba(0,0,0,0.95),0_0_25px_rgba(185,28,28,0.25)]">
+                            
+                            <!-- Monitor Screen Glass -->
+                            <div class="rounded-lg sm:rounded-xl bg-gradient-to-br from-[#120B09] via-[#0B0707] to-[#160C0A] border border-walnut/40 overflow-hidden flex flex-col min-h-[290px] sm:min-h-[330px]">
+                                
+                                <!-- OS Top Status Bar -->
+                                <div class="px-3 sm:px-4 py-2 bg-obsidian/90 border-b border-walnut/40 flex items-center justify-between text-[11px] font-mono">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-ruby"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-cognac"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-walnut"></span>
+                                        <span class="ml-2 text-stone-400 hidden sm:inline">VANGUARD_OS v4.2</span>
+                                    </div>
+
+                                    <!-- Interactive Screen Tab Switcher -->
+                                    <div class="flex items-center gap-1 bg-espresso p-0.5 rounded-md border border-walnut/40">
+                                        <button onclick="switchMonitorTab('command')" id="tab-command" class="mon-tab px-2.5 py-0.5 rounded text-[10px] sm:text-xs font-sans font-medium bg-crimson text-white transition">
+                                            Command
+                                        </button>
+                                        <button onclick="switchMonitorTab('telemetry')" id="tab-telemetry" class="mon-tab px-2.5 py-0.5 rounded text-[10px] sm:text-xs font-sans font-medium text-stone-400 hover:text-stone-200 transition">
+                                            Telemetry
+                                        </button>
+                                        <button onclick="switchMonitorTab('agenda')" id="tab-agenda" class="mon-tab px-2.5 py-0.5 rounded text-[10px] sm:text-xs font-sans font-medium text-stone-400 hover:text-stone-200 transition">
+                                            Agenda
+                                        </button>
+                                    </div>
+
+                                    <!-- Live Clock -->
+                                    <div id="monitor-clock" class="text-ember font-semibold tracking-wider">
+                                        15:09:00
+                                    </div>
+                                </div>
+
+                                <!-- TAB 1: COMMAND DASHBOARD (Default Active) -->
+                                <div id="view-command" class="mon-view p-3 sm:p-5 grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 flex-grow">
+                                    
+                                    <!-- Left Widget: Executive Date & Quick Focus Timer -->
+                                    <div class="md:col-span-4 rounded-xl bg-espresso/70 border border-walnut/40 p-3.5 flex flex-col justify-between">
+                                        <div>
+                                            <span class="text-[10px] font-mono uppercase tracking-wider text-ember">Executive Date</span>
+                                            <div id="monitor-date" class="text-lg sm:text-xl font-bold text-stone-100 mt-0.5">Wed, Nov 18</div>
+                                            <p class="text-xs text-stone-400 mt-1">Q4 Board Strategy &amp; Architecture</p>
+                                        </div>
+
+                                        <div class="mt-4 pt-3 border-t border-walnut/30">
+                                            <div class="flex items-center justify-between text-xs mb-1.5">
+                                                <span class="text-stone-400 font-mono">DEEP WORK BLOCK</span>
+                                                <span id="pomodoro-display" class="text-ruby font-mono font-semibold">45:00</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button onclick="toggleFocusTimer()" id="pomodoro-btn" class="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-crimson to-ruby hover:from-ruby hover:to-ember text-white text-xs font-medium transition shadow-sm">
+                                                    Start Session
+                                                </button>
+                                                <button onclick="resetFocusTimer()" class="px-2.5 py-1.5 rounded-lg bg-obsidian border border-walnut/50 text-stone-300 hover:text-white text-xs transition" title="Reset Timer">
+                                                    ↺
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Center Widget: Interactive Priority Tasks -->
+                                    <div class="md:col-span-5 rounded-xl bg-espresso/70 border border-walnut/40 p-3.5 flex flex-col">
+                                        <div class="flex items-center justify-between mb-2.5">
+                                            <span class="text-[10px] font-mono uppercase tracking-wider text-stone-300">Priority Directives</span>
+                                            <span id="task-counter" class="text-[10px] font-mono px-2 py-0.5 rounded bg-crimson/20 text-ember border border-crimson/30">2/4 Done</span>
+                                        </div>
+                                        
+                                        <ul id="task-list" class="space-y-2 text-xs overflow-y-auto monitor-scroll flex-grow">
+                                            <!-- Interactive Task Items -->
+                                            <li onclick="toggleTask(this)" class="task-item cursor-pointer flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/70 border border-walnut/30 hover:border-crimson/50 transition select-none">
+                                                <span class="task-check w-4 h-4 rounded flex items-center justify-center bg-crimson text-white text-[10px]">✓</span>
+                                                <span class="task-text line-through text-stone-500">Review Q4 capital allocation brief</span>
+                                            </li>
+                                            <li onclick="toggleTask(this)" class="task-item cursor-pointer flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/70 border border-walnut/30 hover:border-crimson/50 transition select-none">
+                                                <span class="task-check w-4 h-4 rounded flex items-center justify-center bg-crimson text-white text-[10px]">✓</span>
+                                                <span class="task-text line-through text-stone-500">Approve studio acoustic treatment specs</span>
+                                            </li>
+                                            <li onclick="toggleTask(this)" class="task-item cursor-pointer flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/70 border border-walnut/30 hover:border-crimson/50 transition select-none">
+                                                <span class="task-check w-4 h-4 rounded border border-cognac/70 flex items-center justify-center text-transparent text-[10px]">✓</span>
+                                                <span class="task-text text-stone-200">Finalize product roadmap keynote deck</span>
+                                            </li>
+                                            <li onclick="toggleTask(this)" class="task-item cursor-pointer flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/70 border border-walnut/30 hover:border-crimson/50 transition select-none">
+                                                <span class="task-check w-4 h-4 rounded border border-cognac/70 flex items-center justify-center text-transparent text-[10px]">✓</span>
+                                                <span class="task-text text-stone-200">1-on-1 with Lead Systems Architect</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Right Widget: Workstation System Stats -->
+                                    <div class="md:col-span-3 rounded-xl bg-espresso/70 border border-walnut/40 p-3.5 flex flex-col justify-between">
+                                        <span class="text-[10px] font-mono uppercase tracking-wider text-stone-300">Workstation Core</span>
+                                        
+                                        <div class="space-y-3 my-2">
+                                            <div>
+                                                <div class="flex justify-between text-[11px] font-mono mb-1">
+                                                    <span class="text-stone-400">CPU LOAD</span>
+                                                    <span id="stat-cpu" class="text-ember">24%</span>
+                                                </div>
+                                                <div class="w-full h-1.5 bg-obsidian rounded-full overflow-hidden">
+                                                    <div id="bar-cpu" class="h-full bg-gradient-to-r from-cognac to-ruby rounded-full transition-all duration-700" style="width: 24%"></div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="flex justify-between text-[11px] font-mono mb-1">
+                                                    <span class="text-stone-400">NEURAL GPU</span>
+                                                    <span id="stat-gpu" class="text-amber-500">41%</span>
+                                                </div>
+                                                <div class="w-full h-1.5 bg-obsidian rounded-full overflow-hidden">
+                                                    <div id="bar-gpu" class="h-full bg-gradient-to-r from-mahogany to-amber-500 rounded-full transition-all duration-700" style="width: 41%"></div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="flex justify-between text-[11px] font-mono mb-1">
+                                                    <span class="text-stone-400">THERMALS</span>
+                                                    <span class="text-stone-200">38°C</span>
+                                                </div>
+                                                <div class="w-full h-1.5 bg-obsidian rounded-full overflow-hidden">
+                                                    <div class="h-full bg-gradient-to-r from-walnut to-crimson rounded-full" style="width: 38%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-[10px] font-mono text-stone-500 flex items-center justify-between pt-2 border-t border-walnut/30">
+                                            <span>DAC AUDIO</span>
+                                            <span class="text-emerald-400">96kHz FLAC</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB 2: TELEMETRY VIEW (Hidden by default) -->
+                                <div id="view-telemetry" class="mon-view hidden p-4 sm:p-6 flex-grow flex flex-col justify-between">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div>
+                                            <h3 class="text-sm font-semibold text-stone-100">Studio Acoustic &amp; Power Telemetry</h3>
+                                            <p class="text-xs text-stone-400">Real-time environmental monitoring across the suite</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 rounded bg-emerald-950/80 border border-emerald-700/40 text-emerald-400 font-mono text-xs">OPTIMAL</span>
+                                    </div>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-auto">
+                                        <div class="p-3 rounded-xl bg-espresso/80 border border-walnut/40">
+                                            <div class="text-[10px] font-mono text-stone-400">AMBIENT NOISE</div>
+                                            <div class="text-xl font-bold text-stone-100 mt-1">28 <span class="text-xs font-normal text-stone-400">dBA</span></div>
+                                            <div class="text-[10px] text-ember mt-1">Walnut Slat Dampening</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-espresso/80 border border-walnut/40">
+                                            <div class="text-[10px] font-mono text-stone-400">ROOM TEMP</div>
+                                            <div class="text-xl font-bold text-stone-100 mt-1">20.5 <span class="text-xs font-normal text-stone-400">°C</span></div>
+                                            <div class="text-[10px] text-amber-500 mt-1">Climate Locked</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-espresso/80 border border-walnut/40">
+                                            <div class="text-[10px] font-mono text-stone-400">FIBER UPLINK</div>
+                                            <div class="text-xl font-bold text-stone-100 mt-1">10 <span class="text-xs font-normal text-stone-400">Gbps</span></div>
+                                            <div class="text-[10px] text-emerald-400 mt-1">2ms Latency</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-espresso/80 border border-walnut/40">
+                                            <div class="text-[10px] font-mono text-stone-400">UPS RESERVE</div>
+                                            <div class="text-xl font-bold text-stone-100 mt-1">100 <span class="text-xs font-normal text-stone-400">%</span></div>
+                                            <div class="text-[10px] text-stone-400 mt-1">Pure Sine Wave</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB 3: AGENDA VIEW (Hidden by default) -->
+                                <div id="view-agenda" class="mon-view hidden p-4 sm:p-6 flex-grow flex flex-col justify-between">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h3 class="text-sm font-semibold text-stone-100">Executive Schedule</h3>
+                                        <span class="text-xs font-mono text-ember">3 BRIEFINGS REMAINING</span>
+                                    </div>
+                                    <div class="space-y-2.5 my-auto text-xs">
+                                        <div class="flex items-center justify-between p-2.5 rounded-lg bg-espresso/80 border-l-4 border-ruby">
+                                            <div>
+                                                <span class="font-semibold text-stone-100">Architecture Design Sign-Off</span>
+                                                <p class="text-stone-400 text-[11px]">Private Boardroom // Hybrid Stream</p>
+                                            </div>
+                                            <span class="font-mono text-ember">16:00</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2.5 rounded-lg bg-espresso/60 border-l-4 border-cognac">
+                                            <div>
+                                                <span class="font-semibold text-stone-200">Global Venture Partners Sync</span>
+                                                <p class="text-stone-400 text-[11px]">Encrypted Audio Bridge</p>
+                                            </div>
+                                            <span class="font-mono text-stone-300">17:30</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2.5 rounded-lg bg-espresso/40 border-l-4 border-walnut">
+                                            <div>
+                                                <span class="font-semibold text-stone-300">Evening Unwind &amp; Espresso</span>
+                                                <p class="text-stone-500 text-[11px]">Switch to Executive Night Lighting</p>
+                                            </div>
+                                            <span class="font-mono text-stone-400">19:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Monitor Bottom Chin Logo -->
+                            <div class="pt-1.5 flex justify-center">
+                                <div class="w-8 h-1 rounded-full bg-crimson/70"></div>
+                            </div>
+                        </div>
+
+                        <!-- Brushed Black Aluminum Monitor Stand Neck & Base -->
+                        <div class="flex flex-col items-center -mt-1">
+                            <div class="w-16 sm:w-20 h-10 sm:h-12 bg-gradient-to-b from-[#070606] via-[#1C1917] to-[#0C0A09] border-x border-stone-800"></div>
+                            <div class="w-44 sm:w-56 h-2.5 bg-gradient-to-r from-[#0C0A09] via-[#292524] to-[#0C0A09] rounded-t-md border-t border-stone-700/60 shadow-xl"></div>
+                        </div>
+                    </div>
+
+                    <!-- ===================================================== -->
+                    <!-- FOREGROUND DESK SURFACE & TACTILE PERIPHERALS         -->
+                    <!-- ===================================================== -->
+                    <div class="mahogany-desk absolute bottom-0 inset-x-0 h-28 sm:h-36 border-t-2 border-cognac/50 z-30 flex flex-col items-center justify-center px-4">
+                        
+                        <!-- Crimson Under-Lip Accent Reflection -->
+                        <div class="ambient-led-glow absolute -top-1 inset-x-12 h-1 bg-gradient-to-r from-transparent via-ruby to-transparent blur-[2px]"></div>
+
+                        <!-- Full-Grain Espresso Brown Leather Desk Mat -->
+                        <div class="leather-mat relative w-full max-w-3xl h-20 sm:h-24 rounded-xl border border-cognac/40 flex items-center justify-between px-4 sm:px-8">
+                            
+                            <!-- Left Item: Matte Black Ceramic Mug with Steaming Espresso -->
+                            <div class="relative flex items-center group cursor-pointer" onclick="triggerCoffeeToast()" title="Freshly brewed single-origin espresso">
+                                <!-- Animated Steam Wisps -->
+                                <div class="absolute -top-6 left-3 flex gap-1.5 pointer-events-none">
+                                    <span class="w-1 h-4 rounded-full bg-stone-300/40 blur-[1px] animate-steam-1"></span>
+                                    <span class="w-1 h-5 rounded-full bg-stone-300/40 blur-[1px] animate-steam-2"></span>
+                                    <span class="w-1 h-4 rounded-full bg-stone-300/40 blur-[1px] animate-steam-3"></span>
+                                </div>
+                                <!-- Coaster -->
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-mahogany border border-cognac/60 flex items-center justify-center shadow-md">
+                                    <!-- Matte Black Mug -->
+                                    <div class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-stone-800 to-black border border-stone-700 flex items-center justify-center shadow-lg">
+                                        <!-- Crema Espresso Liquid -->
+                                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr from-[#2A1208] via-[#5C2A14] to-[#8C4623] border border-amber-900/50"></div>
+                                        <!-- Mug Handle -->
+                                        <div class="absolute -right-2 w-2.5 h-4 rounded-r-full border-2 border-stone-700"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Center Item: Custom 75% Mechanical Keyboard (Black Chassis, Walnut Wrist Rest, Crimson Keycaps) -->
+                            <div class="flex flex-col items-center mx-2">
+                                <!-- Keyboard Body -->
+                                <div class="bg-[#0B0909] p-1.5 sm:p-2 rounded-lg border border-stone-700/80 shadow-[0_8px_15px_rgba(0,0,0,0.85),0_0_12px_rgba(220,38,38,0.2)]">
+                                    <!-- 3 Stylized Keycap Rows -->
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex gap-1">
+                                            <span class="w-3 sm:w-4 h-2 sm:h-2.5 rounded-[2px] bg-ruby shadow-[0_0_5px_rgba(220,38,38,0.8)]"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-3 sm:w-4 h-2 sm:h-2.5 rounded-[2px] bg-crimson"></span>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            <span class="w-3.5 sm:w-5 h-2 sm:h-2.5 rounded-[2px] bg-stone-700"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-2.5 sm:w-3.5 h-2 sm:h-2.5 rounded-[2px] bg-stone-800"></span>
+                                            <span class="w-4 sm:w-5 h-2 sm:h-2.5 rounded-[2px] bg-ruby"></span>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            <span class="w-3 sm:w-4 h-2 sm:h-2.5 rounded-[2px] bg-stone-700"></span>
+                                            <span class="w-3 sm:w-4 h-2 sm:h-2.5 rounded-[2px] bg-stone-700"></span>
+                                            <span class="w-16 sm:w-24 h-2 sm:h-2.5 rounded-[2px] bg-stone-800 border-b border-crimson/60"></span>
+                                            <span class="w-3 sm:w-4 h-2 sm:h-2.5 rounded-[2px] bg-stone-700"></span>
+                                            <span class="w-3 sm:w-4 h-2 sm:h-2.5 rounded-[2px] bg-stone-700"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Handcrafted Solid Walnut Wrist Rest -->
+                                <div class="w-full h-2.5 sm:h-3 mt-1 rounded-sm bg-gradient-to-r from-mahogany via-cognac to-mahogany border-t border-amber-500/20 shadow-md"></div>
+                            </div>
+
+                            <!-- Right Item: Ergonomic Matte Black Wireless Mouse with Crimson Scroll Wheel -->
+                            <div class="flex items-center">
+                                <div class="w-7 h-11 sm:w-8 sm:h-12 rounded-full bg-gradient-to-b from-stone-800 via-[#0E0C0C] to-black border border-stone-700/80 shadow-lg flex flex-col items-center pt-2">
+                                    <!-- Crimson Scroll Wheel -->
+                                    <div class="w-1 h-2.5 rounded-full bg-ruby shadow-[0_0_6px_rgba(220,38,38,0.9)]"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 3. INTERACTIVE ATMOSPHERE CONTROLS & GEAR SPECS BREAKDOWN         -->
+        <!-- ================================================================= -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+            
+            <!-- ATMOSPHERE CUSTOMIZATION CONTROL BAR -->
+            <div class="rounded-2xl bg-gradient-to-r from-espresso via-[#1C110D] to-espresso border border-walnut/60 p-5 sm:p-6 mb-12 shadow-xl">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    
+                    <!-- Section Label -->
+                    <div>
+                        <h2 class="text-base sm:text-lg font-semibold text-stone-100 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-ruby"></span>
+                            Atmosphere &amp; Illumination Controls
+                        </h2>
+                        <p class="text-xs text-stone-400 mt-0.5">Fine-tune the crimson LED bias lighting and architectural desk lamp warmth.</p>
+                    </div>
+
+                    <!-- Interactive Controls Grid -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-6">
+                        
+                        <!-- Control 1: Red Ambient Glow Intensity Slider -->
+                        <div class="flex flex-col min-w-[210px]">
+                            <div class="flex justify-between text-xs font-mono mb-2">
+                                <span class="text-stone-300">CRIMSON BIAS GLOW</span>
+                                <span id="glow-value-label" class="text-ember font-semibold">65%</span>
+                            </div>
+                            <input type="range" id="glow-slider" min="0" max="100" value="65" oninput="updateGlowIntensity(this.value)" aria-label="Crimson Bias Glow Intensity">
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="hidden sm:block w-px h-10 bg-walnut/50"></div>
+
+                        <!-- Control 2: Desk Lamp Warmth Toggle -->
+                        <div class="flex flex-col">
+                            <span class="text-xs font-mono text-stone-300 mb-2">ARCHITECTURAL LAMP</span>
+                            <div class="inline-flex rounded-xl bg-obsidian p-1 border border-walnut/50">
+                                <button onclick="setLampTone('amber')" id="lamp-btn-amber" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-cognac text-white shadow transition">
+                                    Warm Cognac
+                                </button>
+                                <button onclick="setLampTone('crimson')" id="lamp-btn-crimson" class="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-400 hover:text-stone-200 transition">
+                                    Ruby Studio
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- CURATED OFFICE SETUP SPECS / GEAR BREAKDOWN CARDS -->
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-stone-100">Curated Hardware &amp; Material Specs</h2>
+                    <p class="text-sm text-stone-400 mt-1">Crafted from solid American walnut, full-grain espresso leather, and anodized obsidian aluminum.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                
+                <!-- Card 1: Display -->
+                <article class="group rounded-2xl bg-gradient-to-b from-espresso to-obsidian border border-walnut/50 hover:border-crimson/70 p-5 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_rgba(185,28,28,0.18)] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-obsidian border border-walnut/60 text-[11px] font-mono text-ember">DISPLAY</span>
+                            <span class="text-xs font-mono text-stone-500">01</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-stone-100 group-hover:text-ember transition">38" OLED Curved Ultrawide</h3>
+                        <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+                            3840×1600 resolution with true obsidian black levels, 144Hz refresh rate, and rear crimson bias LED strip.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-walnut/30 flex items-center justify-between text-xs font-mono">
+                        <span class="text-stone-400">Finish</span>
+                        <span class="text-stone-200">Matte Obsidian</span>
+                    </div>
+                </article>
+
+                <!-- Card 2: Surface & Desk -->
+                <article class="group rounded-2xl bg-gradient-to-b from-espresso to-obsidian border border-walnut/50 hover:border-crimson/70 p-5 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_rgba(185,28,28,0.18)] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-mahogany/60 border border-cognac/50 text-[11px] font-mono text-amber-400">SURFACE</span>
+                            <span class="text-xs font-mono text-stone-500">02</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-stone-100 group-hover:text-ember transition">Mahogany &amp; Walnut Desk</h3>
+                        <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+                            Solid hardwood slab finished in hand-rubbed dark mahogany oil, paired with an espresso full-grain leather mat.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-walnut/30 flex items-center justify-between text-xs font-mono">
+                        <span class="text-stone-400">Material</span>
+                        <span class="text-amber-500">Kiln-Dried Walnut</span>
+                    </div>
+                </article>
+
+                <!-- Card 3: Input Peripherals -->
+                <article class="group rounded-2xl bg-gradient-to-b from-espresso to-obsidian border border-walnut/50 hover:border-crimson/70 p-5 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_rgba(185,28,28,0.18)] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-crimson/20 border border-crimson/40 text-[11px] font-mono text-ruby">TACTILE</span>
+                            <span class="text-xs font-mono text-stone-500">03</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-stone-100 group-hover:text-ember transition">75% CNC Mechanical Deck</h3>
+                        <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+                            Gasket-mounted black aluminum frame with linear switches, ruby accent PBT keycaps, and custom walnut palm rest.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-walnut/30 flex items-center justify-between text-xs font-mono">
+                        <span class="text-stone-400">Accents</span>
+                        <span class="text-ruby">Anodized Crimson</span>
+                    </div>
+                </article>
+
+                <!-- Card 4: Acoustics & Lighting -->
+                <article class="group rounded-2xl bg-gradient-to-b from-espresso to-obsidian border border-walnut/50 hover:border-crimson/70 p-5 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_rgba(185,28,28,0.18)] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-obsidian border border-walnut/60 text-[11px] font-mono text-stone-300">ACOUSTICS</span>
+                            <span class="text-xs font-mono text-stone-500">04</span>
+                        </div>
+                        <h3 class="text-base font-semibold text-stone-100 group-hover:text-ember transition">Slat Acoustic Wall System</h3>
+                        <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+                            Vertical walnut veneer slats mounted over high-density black acoustic felt to eliminate echo during executive calls.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-walnut/30 flex items-center justify-between text-xs font-mono">
+                        <span class="text-stone-400">NRC Rating</span>
+                        <span class="text-stone-200">0.85 Studio Grade</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- MINIMAL EXECUTIVE FOOTER                                              -->
+    <!-- ===================================================================== -->
+    <footer class="border-t border-walnut/40 bg-obsidian/90 py-6 px-4 text-center text-xs text-stone-500 font-mono">
+        VANGUARD EXECUTIVE WORKSPACE // BLACK, MAHOGANY &amp; CRIMSON EDITION
+    </footer>
+
+    <!-- Subtle Custom Toast Notification (Replaces alert()) -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="px-4 py-3 rounded-xl bg-espresso border border-crimson/60 text-stone-100 text-xs font-medium shadow-[0_10px_25px_rgba(0,0,0,0.9)] flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full bg-ruby animate-ping"></span>
+            <span id="toast-message">Workspace updated.</span>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- INTERACTIVE WORKSPACE LOGIC                                           -->
+    <!-- ===================================================================== -->
+    <script>
+        // 1. Live Clock & Date on Virtual Monitor
+        function updateMonitorClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const clockEl = document.getElementById('monitor-clock');
+            if (clockEl) {
+                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const dateEl = document.getElementById('monitor-date');
+            if (dateEl) {
+                dateEl.textContent = now.toLocaleDateString('en-US', options);
+            }
+        }
+        setInterval(updateMonitorClock, 1000);
+        updateMonitorClock();
+
+        // Subtle live CPU/GPU fluctuation on virtual monitor
+        setInterval(() => {
+            const cpu = Math.floor(Math.random() * 14) + 18; // 18% - 31%
+            const gpu = Math.floor(Math.random() * 18) + 32; // 32% - 49%
+            const cpuText = document.getElementById('stat-cpu');
+            const cpuBar = document.getElementById('bar-cpu');
+            const gpuText = document.getElementById('stat-gpu');
+            const gpuBar = document.getElementById('bar-gpu');
+            if (cpuText && cpuBar) {
+                cpuText.textContent = `${cpu}%`;
+                cpuBar.style.width = `${cpu}%`;
+            }
+            if (gpuText && gpuBar) {
+                gpuText.textContent = `${gpu}%`;
+                gpuBar.style.width = `${gpu}%`;
+            }
+        }, 3500);
+
+        // 2. Virtual Monitor Tab Switcher
+        function switchMonitorTab(tabName) {
+            // Hide all views
+            document.querySelectorAll('.mon-view').forEach(view => {
+                view.classList.add('hidden');
+            });
+            // Show target view
+            const targetView = document.getElementById(`view-${tabName}`);
+            if (targetView) targetView.classList.remove('hidden');
+
+            // Update tab button styles
+            document.querySelectorAll('.mon-tab').forEach(btn => {
+                btn.classList.remove('bg-crimson', 'text-white');
+                btn.classList.add('text-stone-400');
+            });
+            const activeTab = document.getElementById(`tab-${tabName}`);
+            if (activeTab) {
+                activeTab.classList.remove('text-stone-400');
+                activeTab.classList.add('bg-crimson', 'text-white');
+            }
+        }
+
+        // 3. Interactive Task List Check-Off
+        function toggleTask(liElement) {
+            const checkBox = liElement.querySelector('.task-check');
+            const textSpan = liElement.querySelector('.task-text');
+            const isCompleted = textSpan.classList.contains('line-through');
+
+            if (isCompleted) {
+                textSpan.classList.remove('line-through', 'text-stone-500');
+                textSpan.classList.add('text-stone-200');
+                checkBox.classList.remove('bg-crimson', 'text-white');
+                checkBox.classList.add('border', 'border-cognac/70', 'text-transparent');
+            } else {
+                textSpan.classList.add('line-through', 'text-stone-500');
+                textSpan.classList.remove('text-stone-200');
+                checkBox.classList.add('bg-crimson', 'text-white');
+                checkBox.classList.remove('border', 'border-cognac/70', 'text-transparent');
+            }
+            updateTaskCounter();
+        }
+
+        function updateTaskCounter() {
+            const total = document.querySelectorAll('#task-list .task-item').length;
+            const completed = document.querySelectorAll('#task-list .line-through').length;
+            const counterEl = document.getElementById('task-counter');
+            if (counterEl) {
+                counterEl.textContent = `${completed}/${total} Done`;
+            }
+        }
+
+        // 4. Deep Work Pomodoro Timer on Monitor
+        let timerSeconds = 45 * 60;
+        let timerInterval = null;
+
+        function toggleFocusTimer() {
+            const btn = document.getElementById('pomodoro-btn');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                btn.textContent = 'Resume Session';
+            } else {
+                btn.textContent = 'Pause Session';
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        renderTimer();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        btn.textContent = 'Start Session';
+                        showToast('Deep Work block complete.');
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetFocusTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 45 * 60;
+            renderTimer();
+            document.getElementById('pomodoro-btn').textContent = 'Start Session';
+        }
+
+        function renderTimer() {
+            const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+            const secs = String(timerSeconds % 60).padStart(2, '0');
+            document.getElementById('pomodoro-display').textContent = `${mins}:${secs}`;
+        }
+
+        // 5. Atmosphere Controls: Red Ambient Glow Slider & Lamp Tone
+        function updateGlowIntensity(val) {
+            document.documentElement.style.setProperty('--glow-opacity', val / 100);
+            document.getElementById('glow-value-label').textContent = `${val}%`;
+            document.getElementById('glow-slider').value = val;
+        }
+
+        function setLampTone(tone) {
+            const amberBtn = document.getElementById('lamp-btn-amber');
+            const crimsonBtn = document.getElementById('lamp-btn-crimson');
+
+            if (tone === 'amber') {
+                document.documentElement.style.setProperty('--lamp-color', 'rgba(217, 119, 6, 0.24)');
+                document.documentElement.style.setProperty('--lamp-core', '#F59E0B');
+                amberBtn.classList.add('bg-cognac', 'text-white', 'shadow');
+                amberBtn.classList.remove('text-stone-400');
+                crimsonBtn.classList.remove('bg-crimson', 'text-white', 'shadow');
+                crimsonBtn.classList.add('text-stone-400');
+            } else {
+                document.documentElement.style.setProperty('--lamp-color', 'rgba(220, 38, 38, 0.26)');
+                document.documentElement.style.setProperty('--lamp-core', '#EF4444');
+                crimsonBtn.classList.add('bg-crimson', 'text-white', 'shadow');
+                crimsonBtn.classList.remove('text-stone-400');
+                amberBtn.classList.remove('bg-cognac', 'text-white', 'shadow');
+                amberBtn.classList.add('text-stone-400');
+            }
+        }
+
+        // 6. Top Navbar Workspace Mode Presets
+        function setWorkspaceMode(mode) {
+            // Reset button active states
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.className = 'mode-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-stone-400 hover:text-stone-200';
+            });
+
+            const activeBtn = document.getElementById(`btn-mode-${mode}`);
+            if (activeBtn) {
+                activeBtn.className = 'mode-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 bg-gradient-to-r from-crimson to-mahogany text-white shadow-[0_0_12px_rgba(220,38,38,0.45)] border border-ruby/40';
+            }
+
+            if (mode === 'focus') {
+                updateGlowIntensity(30);
+                setLampTone('amber');
+                showToast('Focus Mode: Balanced warm cognac task lighting');
+            } else if (mode === 'ambient') {
+                updateGlowIntensity(65);
+                setLampTone('amber');
+                showToast('Ambient Glow: Signature crimson & walnut balance');
+            } else if (mode === 'night') {
+                updateGlowIntensity(95);
+                setLampTone('crimson');
+                showToast('Executive Night: Deep obsidian & full ruby illumination');
+            }
+        }
+
+        // 7. Interactive Coffee Mug Easter Egg & Custom Toast Helper
+        function triggerCoffeeToast() {
+            showToast('Single-origin dark roast espresso — 72°C');
+        }
+
+        let toastTimeout = null;
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
